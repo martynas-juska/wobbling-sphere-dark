@@ -1,0 +1,305 @@
+/* ============================================
+   RESET & BASE STYLES
+   ============================================ */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    background: #0a0a0f;
+}
+
+/* ============================================
+   3D CANVAS CONTAINER
+   ============================================ */
+.webgl-hero {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #0a0a0f 0%, #1a1a2e 100%);
+}
+
+.webgl {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    outline: none;
+    opacity: 0;
+    transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.webgl.visible {
+    opacity: 1;
+}
+
+/* ============================================
+   LOADING OVERLAY
+   ============================================ */
+.webgl-loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #0a0a0f 0%, #1a1a2e 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    opacity: 1;
+    transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.webgl-loader.loaded {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.webgl-loader.hidden {
+    display: none;
+}
+
+/* ============================================
+   LOADER CONTENT
+   ============================================ */
+.loader-content {
+    text-align: center;
+    user-select: none;
+}
+
+/* ============================================
+   ANIMATED SPHERE LOADER
+   ============================================ */
+.loader-sphere {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    margin: 0 auto 40px;
+}
+
+.sphere-ring {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    border: 3px solid transparent;
+    border-radius: 50%;
+    animation: spin 1.5s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite;
+}
+
+.sphere-ring:nth-child(1) {
+    width: 60px;
+    height: 60px;
+    margin: -30px 0 0 -30px;
+    border-top-color: #68707A;
+    border-right-color: rgba(104, 112, 122, 0.3);
+    animation-duration: 1.5s;
+}
+
+.sphere-ring:nth-child(2) {
+    width: 85px;
+    height: 85px;
+    margin: -42.5px 0 0 -42.5px;
+    border-top-color: rgba(104, 112, 122, 0.6);
+    border-left-color: rgba(104, 112, 122, 0.2);
+    animation-duration: 2s;
+    animation-delay: 0.2s;
+}
+
+.sphere-ring:nth-child(3) {
+    width: 110px;
+    height: 110px;
+    margin: -55px 0 0 -55px;
+    border-top-color: rgba(104, 112, 122, 0.4);
+    border-bottom-color: rgba(104, 112, 122, 0.1);
+    animation-duration: 2.5s;
+    animation-delay: 0.4s;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.6;
+    }
+    100% {
+        transform: rotate(360deg);
+        opacity: 1;
+    }
+}
+
+/* ============================================
+   LOADING TEXT
+   ============================================ */
+.loader-text {
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    margin-bottom: 30px;
+    opacity: 0.9;
+    text-transform: uppercase;
+    animation: pulse 2s ease-in-out infinite;
+    transition: all 0.3s ease;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 0.9;
+    }
+    50% {
+        opacity: 0.4;
+    }
+}
+
+/* ============================================
+   PROGRESS BAR
+   ============================================ */
+.loader-progress {
+    width: 240px;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 4px;
+    overflow: hidden;
+    margin: 0 auto;
+    box-shadow: 
+        inset 0 1px 3px rgba(0, 0, 0, 0.3),
+        0 0 10px rgba(104, 112, 122, 0.1);
+}
+
+.progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, 
+        #68707A 0%, 
+        #8bb8d8 50%, 
+        #68707A 100%
+    );
+    background-size: 200% 100%;
+    width: 0%;
+    transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 
+        0 0 15px rgba(139, 184, 216, 0.5),
+        0 0 30px rgba(139, 184, 216, 0.3);
+    animation: shimmer 2s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: 200% center;
+    }
+    100% {
+        background-position: -200% center;
+    }
+}
+
+/* ============================================
+   RESPONSIVE ADJUSTMENTS
+   ============================================ */
+@media (max-width: 768px) {
+    .loader-sphere {
+        width: 100px;
+        height: 100px;
+        margin-bottom: 30px;
+    }
+
+    .sphere-ring:nth-child(1) {
+        width: 50px;
+        height: 50px;
+        margin: -25px 0 0 -25px;
+    }
+
+    .sphere-ring:nth-child(2) {
+        width: 70px;
+        height: 70px;
+        margin: -35px 0 0 -35px;
+    }
+
+    .sphere-ring:nth-child(3) {
+        width: 90px;
+        height: 90px;
+        margin: -45px 0 0 -45px;
+    }
+
+    .loader-text {
+        font-size: 14px;
+        letter-spacing: 1.5px;
+        margin-bottom: 25px;
+    }
+
+    .loader-progress {
+        width: 200px;
+        height: 3px;
+    }
+}
+
+@media (max-width: 480px) {
+    .loader-sphere {
+        width: 80px;
+        height: 80px;
+        margin-bottom: 25px;
+    }
+
+    .sphere-ring:nth-child(1) {
+        width: 40px;
+        height: 40px;
+        margin: -20px 0 0 -20px;
+        border-width: 2px;
+    }
+
+    .sphere-ring:nth-child(2) {
+        width: 55px;
+        height: 55px;
+        margin: -27.5px 0 0 -27.5px;
+        border-width: 2px;
+    }
+
+    .sphere-ring:nth-child(3) {
+        width: 70px;
+        height: 70px;
+        margin: -35px 0 0 -35px;
+        border-width: 2px;
+    }
+
+    .loader-text {
+        font-size: 12px;
+        letter-spacing: 1px;
+        margin-bottom: 20px;
+    }
+
+    .loader-progress {
+        width: 160px;
+    }
+}
+
+/* ============================================
+   PERFORMANCE OPTIMIZATIONS
+   ============================================ */
+.webgl-loader *,
+.webgl-hero * {
+    will-change: transform, opacity;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .sphere-ring,
+    .loader-text,
+    .progress-bar {
+        animation: none;
+    }
+
+    .webgl,
+    .webgl-loader {
+        transition: none;
+    }
+}
